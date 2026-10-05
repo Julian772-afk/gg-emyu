@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBARAT KATA — Media Culture</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; background: #fff; color: #111; }
+
+/* HEADER */
+header { border-bottom: 1px solid #111; background: white; position: sticky; top: 0; z-index: 100; }
+.topbar { height: 85px; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; }
+.logo { display: flex; align-items: center; gap: 12px; font-size: 34px; font-weight: 900; letter-spacing: -2px; cursor: pointer; }
+.logo-ik { height: 45px; width: auto; display: block; }
+nav { display: flex; gap: 30px; }
+nav a { text-decoration: none; color: #111; font-size: 13px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
+nav a:hover, nav a.active { text-decoration: underline; }
+.menu { font-size: 25px; cursor: pointer; }
+
+/* TRENDING */
+.trending { background: #111; color: white; height: 42px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+.trending strong { background: #e5ff00; color: #111; padding: 12px 18px; font-size: 12px; height: 100%; display: flex; align-items: center; }
+.trending span { padding-left: 25px; font-size: 12px; font-weight: bold; }
+
+/* PAGE SYSTEM */
+.page { display: none; animation: fadeIn .3s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* HERO */
+.hero { width: 90%; margin: 35px auto 70px; display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+.hero-main { height: 560px; position: relative; overflow: hidden; background: #111; cursor: pointer; }
+.hero-main img { width: 100%; height: 100%; object-fit: cover; transition: .5s; }
+.hero-main:hover img { transform: scale(1.04); }
+.hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 45px; background: linear-gradient(transparent, rgba(0,0,0,.9)); color: white; }
+.category { display: inline-block; background: #e5ff00; color: #111; padding: 7px 12px; font-size: 11px; font-weight: bold; margin-bottom: 15px; }
+.hero-overlay h1 { font-size: 48px; line-height: 1; max-width: 800px; letter-spacing: -2px; }
+.hero-overlay p { margin-top: 15px; color: #ddd; }
+
+/* SIDE STORIES */
+.side-stories { display: flex; flex-direction: column; gap: 25px; }
+.side-story { flex: 1; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #ccc; padding-bottom: 20px; gap: 15px; cursor: pointer; }
+.side-story img { width: 100%; height: 170px; object-fit: cover; }
+.side-story h3 { font-size: 22px; line-height: 1.1; }
+.side-story small { display: block; margin-bottom: 10px; font-weight: bold; color: #777; }
+
+/* SECTION */
+.section { width: 90%; margin: 0 auto 80px; }
+.section-header { border-top: 5px solid #111; padding-top: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+.section-header h2 { font-size: 35px; letter-spacing: -1px; }
+.section-header a { color: #111; font-size: 12px; font-weight: bold; text-decoration: underline; cursor: pointer; }
+
+/* ARTICLES */
+.articles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.article { cursor: pointer; }
+.article-image { width: 100%; height: 300px; overflow: hidden; background: #eee; }
+.article-image img { width: 100%; height: 100%; object-fit: cover; transition: .4s; }
+.article:hover img { transform: scale(1.05); }
+.article-info { padding-top: 15px; }
+.article-info small { font-size: 11px; font-weight: bold; color: #777; }
+.article-info h3 { margin-top: 8px; font-size: 25px; line-height: 1.05; letter-spacing: -.5px; }
+.article-info p { margin-top: 10px; color: #666; line-height: 1.5; font-size: 14px; }
+
+/* CATEGORY */
+.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.category-box { height: 180px; background: #111; color: white; display: flex; align-items: center; justify-content: center; font-size: 25px; font-weight: 900; text-transform: uppercase; text-decoration: none; transition: .3s; cursor: pointer; }
+.category-box:hover { background: #e5ff00; color: #111; }
+
+/* ACTIONS */
+.actions { margin-top: 15px; display: flex; gap: 8px; }
+.actions button { background: #fff; border: 1px solid #111; padding: 8px 12px; cursor: pointer; font-size: 11px; font-weight: bold; }
+.actions button:hover { background: #111; color: white; }
+
+/* LIVE SCORE & KLASEMEN */
+.live-section { width: 90%; margin: 0 auto 80px; }
+.live-header { border-top: 5px solid #111; padding-top: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+.live-header h2 { font-size: 35px; letter-spacing: -1px; }
+.refresh-btn { background: #e5ff00; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; font-size: 12px; letter-spacing: 1px; }
+.refresh-btn:hover { background: #111; color: white; }
+.live-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.match-card { border: 1px solid #eaeaea; padding: 20px; background: #fff; transition: .3s; }
+.match-card:hover { border-color: #111; }
+.match-card.live { border-left: 4px solid #e5ff00; }
+.match-team { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 15px; padding: 6px 0; }
+.match-team .score { font-size: 22px; font-weight: 900; }
+.match-status { margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; font-size: 11px; color: #777; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+.live-badge { background: #e5ff00; color: #111; padding: 4px 10px; font-size: 10px; font-weight: 900; }
+
+.standings-tabs { display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+.standings-tabs button { background: transparent; border: 1px solid #111; padding: 10px 18px; font-size: 12px; font-weight: bold; cursor: pointer; transition: .2s; text-transform: uppercase; }
+.standings-tabs button:hover, .standings-tabs button.active { background: #111; color: white; }
+
+.standings-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.standings-table th { text-align: left; padding: 15px 10px; border-bottom: 2px solid #111; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #777; }
+.standings-table td { padding: 14px 10px; border-bottom: 1px solid #eaeaea; }
+.standings-table tr:hover td { background: #fafafa; }
+.standings-table .pos { font-weight: 900; font-size: 16px; width: 40px; }
+.standings-table .team-name { font-weight: bold; display: flex; align-items: center; gap: 8px; }
+.standings-table .team-name img { width: 20px; height: 20px; object-fit: contain; }
+.standings-table .pts { font-weight: 900; font-size: 16px; }
+
+.loading { text-align: center; padding: 40px; color: #999; font-size: 14px; grid-column: 1 / -1; }
+.error-msg { text-align: center; padding: 40px; background: #fafafa; color: #777; font-size: 13px; grid-column: 1 / -1; }
+
+/* PAGE HEADER */
+.page-header { width: 90%; max-width: 1200px; margin: 60px auto 40px; text-align: center; }
+.page-header .label { font-size: 11px; letter-spacing: 3px; color: #999; font-weight: bold; text-transform: uppercase; }
+.page-header h1 { font-size: 64px; font-weight: 900; letter-spacing: -2px; margin: 12px 0 16px; line-height: 1; }
+.page-header p { color: #666; font-size: 15px; max-width: 560px; margin: 0 auto; }
+
+.filter-bar { width: 90%; max-width: 1200px; margin: 0 auto 50px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.filter-bar button { background: transparent; border: 1px solid #eaeaea; padding: 8px 20px; border-radius: 30px; font-size: 12px; font-weight: bold; cursor: pointer; transition: .2s; color: #666; }
+.filter-bar button:hover, .filter-bar button.active { background: #111; color: #fff; border-color: #111; }
+
+.featured-segment { width: 90%; max-width: 1200px; margin: 0 auto 80px; }
+.featured-segment img { width: 100%; height: 460px; object-fit: cover; cursor: pointer; }
+.featured-segment-content { padding-top: 28px; max-width: 720px; }
+.featured-segment-content h2 { font-size: 36px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.15; margin: 12px 0 16px; }
+.featured-segment-content p { color: #666; font-size: 15px; line-height: 1.7; }
+
+.article-info p + p { margin-top: 8px; }
+
+/* ARTIKEL DETAIL */
+.artikel-header { width: 90%; max-width: 800px; margin: 60px auto 20px; }
+.artikel-header .label { font-size: 11px; letter-spacing: 3px; color: #999; font-weight: bold; text-transform: uppercase; }
+.artikel-header h1 { font-size: 52px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.05; margin: 14px 0; }
+.artikel-header .meta { color: #777; font-size: 13px; font-weight: bold; }
+.artikel-hero { width: 90%; max-width: 900px; margin: 0 auto 40px; }
+.artikel-hero img { width: 100%; height: 480px; object-fit: cover; }
+.artikel-body { width: 90%; max-width: 800px; margin: 0 auto 40px; }
+.artikel-body p { font-size: 17px; line-height: 1.85; color: #333; margin-bottom: 22px; }
+.artikel-body p:first-of-type::first-letter { font-size: 60px; font-weight: 900; float: left; line-height: .9; padding: 6px 12px 0 0; }
+.artikel-tools { width: 90%; max-width: 800px; margin: 0 auto 60px; padding-top: 25px; border-top: 1px solid #eaeaea; display: flex; gap: 10px; flex-wrap: wrap; }
+.artikel-tools button { padding: 12px 20px; cursor: pointer; font-size: 12px; font-weight: bold; border: 1px solid #111; background: #fff; }
+.artikel-tools button:hover { background: #111; color: #fff; }
+.artikel-tools .back { background: #111; color: #fff; border: none; }
+.artikel-tools .back:hover { background: #e5ff00; color: #111; }
+
+/* ARTIST PROFILE PAGE */
+.artist-hero { position: relative; width: 100%; height: 520px; overflow: hidden; background: #111; margin-bottom: 60px; }
+.artist-hero img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+.artist-hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 60px 5% 45px; background: linear-gradient(transparent, rgba(0,0,0,.95)); color: white; }
+.artist-hero-overlay h1 { font-size: 68px; line-height: 1; letter-spacing: -3px; font-weight: 900; }
+.artist-hero-overlay .label-badge { display: inline-block; background: #e5ff00; color: #111; padding: 7px 12px; font-size: 11px; font-weight: bold; margin-bottom: 18px; letter-spacing: 1px; }
+.artist-back { position: absolute; top: 30px; left: 5%; background: #fff; color: #111; border: none; padding: 12px 22px; font-weight: bold; font-size: 12px; letter-spacing: 1px; cursor: pointer; z-index: 5; transition: .2s; }
+.artist-back:hover { background: #e5ff00; }
+
+.artist-content { width: 90%; max-width: 800px; margin: 0 auto 100px; }
+.artist-content p { font-size: 17px; line-height: 1.85; color: #333; margin-bottom: 22px; }
+.artist-content p:first-of-type::first-letter { font-size: 60px; font-weight: 900; float: left; line-height: .9; padding: 6px 12px 0 0; }
+
+.artist-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 22px; margin-bottom: 45px; border-top: 3px solid #111; border-bottom: 1px solid #eaeaea; padding: 25px 0; }
+.artist-meta div strong { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 6px; }
+.artist-meta div span { font-size: 15px; font-weight: bold; color: #111; }
+
+.artist-related { width: 90%; max-width: 1200px; margin: 0 auto 80px; }
+
+/* NEWSLETTER */
+.newsletter { background: #e5ff00; padding: 60px 7%; margin-top: 80px; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+.newsletter h2 { font-size: 42px; line-height: .95; }
+.newsletter p { max-width: 500px; }
+.newsletter button { background: #111; color: white; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; }
+
+/* FOOTER */
+footer { background: #111; color: white; padding: 60px 5%; }
+.footer-logo { display: flex; align-items: center; gap: 15px; font-size: 45px; font-weight: 900; letter-spacing: -3px; }
+.footer-logo .logo-ik { height: 55px; }
+.footer-content { margin-top: 30px; display: flex; justify-content: space-between; border-top: 1px solid #555; padding-top: 25px; }
+footer a { color: white; text-decoration: none; margin-right: 20px; font-size: 12px; }
+.copyright { margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; text-align: center; font-size: 12px; color: #aaa; line-height: 1.8; }
+.copyright strong { color: #e5ff00; }
+
+/* MOBILE */
+@media(max-width: 800px) {
+    .topbar { height: 70px; }
+    .logo { font-size: 25px; gap: 8px; }
+    .logo-ik { height: 32px; }
+    nav { display: none; }
+    .hero { grid-template-columns: 1fr; width: 94%; }
+    .hero-main { height: 450px; }
+    .hero-overlay { padding: 25px; }
+    .hero-overlay h1 { font-size: 35px; }
+    .side-story h3 { font-size: 18px; }
+    .articles { grid-template-columns: 1fr; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .section { width: 94%; }
+    .newsletter { flex-direction: column; align-items: flex-start; }
+    .newsletter h2 { font-size: 35px; }
+    .footer-content { flex-direction: column; gap: 20px; }
+    .footer-logo { font-size: 32px; gap: 10px; }
+    .footer-logo .logo-ik { height: 40px; }
+    .page-header h1 { font-size: 40px; }
+    .featured-segment img { height: 300px; }
+    .featured-segment-content h2 { font-size: 26px; }
+    .live-header h2 { font-size: 25px; }
+    .live-grid { grid-template-columns: 1fr; }
+    .standings-table th, .standings-table td { padding: 10px 6px; font-size: 12px; }
+    .artist-hero { height: 380px; }
+    .artist-hero-overlay h1 { font-size: 40px; letter-spacing: -2px; }
+    .artist-content p { font-size: 15px; }
+    .artist-back { padding: 10px 16px; font-size: 11px; top: 18px; }
+    .artikel-header h1 { font-size: 32px; }
+    .artikel-hero img { height: 260px; }
+    .artikel-body p { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="topbar">
+        <div class="logo" onclick="showPage('home')">
+            <svg class="logo-ik" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="20,40 45,40 35,100 10,100" fill="#111"/>
+                <polygon points="25,20 55,10 50,35 20,45" fill="#e5ff00"/>
+                <polygon points="60,40 85,40 85,65 115,40 145,40 105,72 150,100 118,100 85,75 85,100 60,100" fill="#111"/>
+            </svg>
+            IBARAT KATA
+        </div>
+        <nav>
+            <a onclick="showPage('home')" data-page="home" class="active">Home</a>
+            <a onclick="showPage('fashion')" data-page="fashion">Fashion</a>
+            <a onclick="showPage('sepakbola')" data-page="sepakbola">Sepak Bola</a>
+            <a onclick="showPage('musik')" data-page="musik">Musik</a>
+            <a onclick="showPage('sinema')" data-page="sinema">Sinema</a>
+        </nav>
+        <div class="menu">☰</div>
+    </div>
+</header>
+
+<div class="trending">
+    <strong>TRENDING</strong>
+    <span>Streetwear Lokal &nbsp; • &nbsp; Musik Indie &nbsp; • &nbsp; Culture Suporter &nbsp; • &nbsp; Film & Series &nbsp; • &nbsp; Brand Lokal</span>
+</div>
+
+<!-- =========================
+     PAGE: HOME
+========================= -->
+<div id="page-home" class="page active">
+
+    <section class="hero">
+        <div class="hero-main" onclick="showArticle('streetwear-lokal-mendunia')">
+            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b" alt="Fashion">
+            <div class="hero-overlay">
+                <span class="category">FASHION</span>
+                <h1>Streetwear Lokal yang Mulai Mendunia</h1>
+                <p>Membahas perkembangan streetwear, tren thrifting, brand lokal, dan gaya figur publik.</p>
+            </div>
+        </div>
+        <div class="side-stories">
+            <div class="side-story" onclick="showArticle('sepakbola-culture')">
+                <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55">
+                <div>
+                    <small>SEPAK BOLA</small>
+                    <h3>Ketika Sepak Bola Menjadi Bagian dari Culture</h3>
+                </div>
+            </div>
+            <div class="side-story" onclick="showArticle('skena-musik-indie')">
+                <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3">
+                <div>
+                    <small>MUSIK</small>
+                    <h3>Skena Musik Indie yang Terus Berkembang</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>EDITORIAL PICK</h2>
+            <a onclick="showPage('fashion')">VIEW ALL →</a>
+        </div>
+        <div class="articles">
+            <article class="article" onclick="showArticle('streetwear-lokal-mendunia')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234"></div>
+                <div class="article-info">
+                    <small>FASHION</small>
+                    <h3>Streetwear Lokal yang Mulai Mendunia</h3>
+                    <p>Membahas perkembangan brand streetwear lokal dan bagaimana gaya anak muda membentuk tren fashion masa kini.</p>
+                    <div class="actions">
+                        <button onclick="event.stopPropagation();bookmark(this)">🔖 SIMPAN</button>
+                        <button onclick="event.stopPropagation();shareArticle()">↗ SHARE</button>
+                    </div>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('sepakbola-culture')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20"></div>
+                <div class="article-info">
+                    <small>SEPAK BOLA</small>
+                    <h3>Ketika Sepak Bola Menjadi Bagian dari Culture</h3>
+                    <p>Sepak bola bukan hanya tentang pertandingan, tetapi juga identitas, fashion, musik, dan komunitas suporter.</p>
+                    <div class="actions">
+                        <button onclick="event.stopPropagation();bookmark(this)">🔖 SIMPAN</button>
+                        <button onclick="event.stopPropagation();shareArticle()">↗ SHARE</button>
+                    </div>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('skena-musik-indie')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f"></div>
+                <div class="article-info">
+                    <small>MUSIK</small>
+                    <h3>Skena Musik Indie yang Terus Berkembang</h3>
+                    <p>Dari panggung kecil hingga festival besar, musik indie semakin memiliki tempat di kalangan generasi muda.</p>
+                    <div class="actions">
+                        <button onclick="event.stopPropagation();bookmark(this)">🔖 SIMPAN</button>
+                        <button onclick="event.stopPropagation();shareArticle()">↗ SHARE</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header"><h2>EXPLORE</h2></div>
+        <div class="category-grid">
+            <div class="category-box" onclick="showPage('fashion')">FASHION</div>
+            <div class="category-box" onclick="showPage('sepakbola')">SEPAK BOLA</div>
+            <div class="category-box" onclick="showPage('musik')">MUSIK</div>
+            <div class="category-box" onclick="showPage('sinema')">SINEMA</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>TRENDING TOPIC</h2>
+            <a onclick="showPage('sinema')">SEE MORE →</a>
+        </div>
+        <div class="articles">
+            <article class="article" onclick="showArticle('rilisan-album-baru')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1483412033650-1015ddeb83d1"></div>
+                <div class="article-info">
+                    <small>MUSIK</small>
+                    <h3>Rilisan Album Baru yang Patut Didengar</h3>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('film-series-ramai')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85"></div>
+                <div class="article-info">
+                    <small>SINEMA</small>
+                    <h3>Film dan Series yang Sedang Ramai Dibicarakan</h3>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('film-series-ramai')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37"></div>
+                <div class="article-info">
+                    <small>SINEMA</small>
+                    <h3>Fenomena Culture Anak Muda Masa Kini</h3>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div><h2>STAY<br>UPDATED.</h2></div>
+        <div>
+            <p>Dapatkan update terbaru tentang fashion, sepak bola, musik, dan sinema.</p>
+            <br>
+            <button>SUBSCRIBE</button>
+        </div>
+    </section>
+
+</div>
+
+<!-- =========================
+     PAGE: FASHION
+========================= -->
+<div id="page-fashion" class="page">
+    <section class="page-header">
+        <span class="label">Kategori</span>
+        <h1>FASHION</h1>
+        <p>Streetwear, thrifting, brand lokal, dan gaya figur publik yang membentuk tren masa kini.</p>
+    </section>
+
+    <div class="filter-bar" id="fashionSubNav">
+        <button class="active" onclick="filterFashion('all', this)">Semua</button>
+        <button onclick="filterFashion('streetwear', this)">Streetwear</button>
+        <button onclick="filterFashion('thrifting', this)">Thrifting</button>
+        <button onclick="filterFashion('brand-lokal', this)">Brand Lokal</button>
+        <button onclick="filterFashion('runway', this)">Runway</button>
+    </div>
+
+    <section class="featured-segment" id="fashionFeatured">
+        <!-- Diisi otomatis oleh JavaScript -->
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>ARTIKEL TERBARU</h2>
+            <a onclick="renderFashionGrid('all')">↻ MUAT ULANG</a>
+        </div>
+        <div class="articles" id="fashionGrid">
+            <div class="loading">Memuat artikel fashion...</div>
+        </div>
+    </section>
+</div>
+
+<!-- =========================
+     PAGE: SEPAK BOLA
+========================= -->
+<div id="page-sepakbola" class="page">
+    <section class="page-header">
+        <span class="label">Kategori</span>
+        <h1>SEPAK BOLA</h1>
+        <p>Bukan sekadar pertandingan — identitas, culture suporter, dan gaya hidup di sekitarnya.</p>
+    </section>
+
+    <div class="filter-bar">
+        <button class="active">Semua</button>
+        <button>Liga</button>
+        <button>Suporter</button>
+        <button>Culture</button>
+        <button>Fashion</button>
+    </div>
+
+    <section class="live-section">
+        <div class="live-header">
+            <h2> LIVE SCORE</h2>
+            <button class="refresh-btn" onclick="loadLiveScores()">↻ REFRESH</button>
+        </div>
+        <div id="liveScoreContainer" class="live-grid">
+            <div class="loading">Memuat live score...</div>
+        </div>
+    </section>
+
+    <section class="live-section">
+        <div class="live-header">
+            <h2> KLASEMEN LIGA </h2>
+        </div>
+        <div class="standings-tabs">
+            <button class="active" onclick="loadStandings('eng.1', this)">Premier League</button>
+            <button onclick="loadStandings('esp.1', this)">La Liga</button>
+            <button onclick="loadStandings('ger.1', this)">Bundesliga</button>
+            <button onclick="loadStandings('ita.1', this)">Serie A</button>
+            <button onclick="loadStandings('fra.1', this)">Ligue 1</button>
+        </div>
+        <div id="standingsContainer">
+            <div class="loading">Memuat klasemen...</div>
+        </div>
+    </section>
+
+    <section class="featured-segment">
+        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20" onclick="showArticle('sepakbola-culture')">
+        <div class="featured-segment-content">
+            <span class="category">SEPAK BOLA · FEATURED</span>
+            <h2>Ketika Sepak Bola Menjadi Bagian dari Culture</h2>
+            <p>Bagaimana sepak bola membentuk identitas kolektif, dari tribun stadion hingga jalanan kota.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header"><h2>ARTIKEL TERBARU</h2></div>
+        <div class="articles">
+            <article class="article" onclick="showArticle('peta-persaingan-liga')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1551958219-acbc608c6377"></div>
+                <div class="article-info">
+                    <small>LIGA</small>
+                    <h3>Peta Persaingan Liga Musim Ini</h3>
+                    <p>Siapa yang layak difavoritkan dan siapa kejutan musim ini.</p>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('koreografi-tribun')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d"></div>
+                <div class="article-info">
+                    <small>SUPORTER</small>
+                    <h3>Koreografi Tribun yang Jadi Karya Seni</h3>
+                    <p>Suporter Indonesia dikenal dengan kreativitas visualnya.</p>
+                </div>
+            </article>
+            <article class="article" onclick="showArticle('sepakbola-bahasa-persatuan')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018"></div>
+                <div class="article-info">
+                    <small>CULTURE</small>
+                    <h3>Sepak Bola sebagai Bahasa Persatuan</h3>
+                    <p>Di lapangan, semua perbedaan melebur jadi satu.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+<!-- =========================
+     PAGE: MUSIK
+========================= -->
+<div id="page-musik" class="page">
+    <section class="page-header">
+        <span class="label">Kategori</span>
+        <h1>MUSIK</h1>
+        <p>Profil, album, dan lanskap band populer Indonesia — dari pop hingga indie.</p>
+    </section>
+
+    <div class="filter-bar" id="musicSubNav">
+        <button class="active" onclick="showMusicTab('profil', this)">PROFIL BAND</button>
+        <button onclick="showMusicTab('album', this)">DAFTAR ALBUM</button>
+    </div>
+
+    <div id="musicTab-profil" class="music-tab-content" style="display:block;">
+        <section class="section">
+            <div class="section-header"><h2>PROFIL BAND</h2></div>
+            <div class="articles" id="artistGrid">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <div id="musicTab-album" class="music-tab-content" style="display:none;">
+        <section class="section">
+            <div class="section-header"><h2>DAFTAR ALBUM</h2></div>
+            <div class="articles">
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · SHEILA ON 7</small>
+                        <h3>Sheila On 7</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Sheila On 7 (1999)</li>
+                            <li>Kisah Klasik Untuk Masa Depan (2000)</li>
+                            <li>07 Des (2002)</li>
+                            <li>Pejantan Tangguh (2004)</li>
+                            <li>507 (2006)</li>
+                            <li>Menentukan Arah (2008)</li>
+                            <li>Berlayar (2011)</li>
+                            <li>Musim Yang Baik (2014)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · NOAH / PETERPAN</small>
+                        <h3>NOAH</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Taman Langit (2003) — sebagai Peterpan</li>
+                            <li>Bintang di Surga (2004) — sebagai Peterpan</li>
+                            <li>Hari yang Cerah... (2007) — sebagai Peterpan</li>
+                            <li>Sebuah Nama, Sebuah Cerita (2008)</li>
+                            <li>Seperti Seharusnya (2012) — sebagai NOAH</li>
+                            <li>Keterkaitan Keterikatan (2019)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · DEWA 19</small>
+                        <h3>Dewa 19</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>19 (1992)</li>
+                            <li>Format Masa Depan (1994)</li>
+                            <li>Terbaik Terbaik (1995)</li>
+                            <li>Pandawa Lima (1997)</li>
+                            <li>Bintang Lima (2000)</li>
+                            <li>Cintailah Cinta (2002)</li>
+                            <li>Laskar Cinta (2004)</li>
+                            <li>Republik Cinta (2006)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · D'MASIV</small>
+                        <h3>D'Masiv</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Perubahan (2008)</li>
+                            <li>Perjalanan (2009)</li>
+                            <li>Persiapan (2012)</li>
+                            <li>Hidup Lebih Indah (2014)</li>
+                            <li>d'Masiv (2016)</li>
+                            <li>Love (2019)</li>
+                            <li>Time (2022)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · MALIQ & D'ESSENTIALS</small>
+                        <h3>Maliq & D'Essentials</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>1st (2005)</li>
+                            <li>Free Your Mind (2007)</li>
+                            <li>Mata Hati Telinga (2009)</li>
+                            <li>The Beginning of a Beautiful Life (2010)</li>
+                            <li>Sriwedari (2013)</li>
+                            <li>Musik Pop (2014)</li>
+                            <li>Senandung Senandika (2017)</li>
+                            <li>Raya (2021)</li>
+                            <li>Can Machines Fall In Love? (2024)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · STARRDUCC</small>
+                        <h3>Starrducc</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>starrducc (EP, 2023)</li>
+                            <li>starrducc II (EP, 2023)</li>
+                            <li>Introducction (Kompilasi Vinyl, 2025, P-Vine Japan)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · PEE WEE GASKINS</small>
+                        <h3>Pee Wee Gaskins</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Stories From Our High School Years (2008)</li>
+                            <li>The Sophomore (2009)</li>
+                            <li>Ad Astra Per Aspera (2010)</li>
+                            <li>A Youth Not Wasted (2016)</li>
+                            <li>Salute To 90's (EP, 2018)</li>
+                            <li>Mixed Feeling (2019)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · ROCKET ROCKERS</small>
+                        <h3>Rocket Rockers</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Soundtrack For Your Life (2001)</li>
+                            <li>Ras Bebas (2004)</li>
+                            <li>Better Seasons (2008)</li>
+                            <li>Tons of Life (2011)</li>
+                            <li>Merekam Jejak (2014)</li>
+                            <li>Menuju Cahaya (2015)</li>
+                            <li>Reaksi Rasa (2019)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · STAND HERE ALONE</small>
+                        <h3>Stand Here Alone</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Melodichildish (2015)</li>
+                            <li>Korban Lelaki (2015)</li>
+                            <li>Indah Tak Sempurna (2016)</li>
+                            <li>Dustai (2019)</li>
+                            <li>Maha Benar (2020)</li>
+                            <li>Tertawa (2021)</li>
+                            <li>Ceria (2023)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · CLOSEHEAD</small>
+                        <h3>Closehead</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Discopunkhead (Split Mini Album)</li>
+                            <li>Berdiri Teman (20th Anniversary Edition, 2025)</li>
+                            <li>Arti Yang Sama (Single, 2025)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · FOR REVENGE</small>
+                        <h3>For Revenge</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Fireworks (2017)</li>
+                            <li>Perayaan Patah Hati - Babak 1 (2022)</li>
+                            <li>Jeda (2023)</li>
+                            <li>Sadrah (2024)</li>
+                            <li>Penyangkalan (2024)</li>
+                            <li>Semula (2024)</li>
+                            <li>Perayaan Patah Hati - Babak 2 (2025)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · FSTVLST</small>
+                        <h3>FSTVLST</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Hits Kitsch (2014)</li>
+                            <li>Fstvlst II (2020)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · .FEAST</small>
+                        <h3>.Feast</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Multiverses (2017)</li>
+                            <li>Uang Muka (2020)</li>
+                            <li>Abdi Lara Insani (2022)</li>
+                            <li>Membangun & Menghancurkan (2024)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · EFEK RUMAH KACA</small>
+                        <h3>Efek Rumah Kaca</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Efek Rumah Kaca (2007)</li>
+                            <li>Kamar Gelap (2008)</li>
+                            <li>Sinestesia (2015)</li>
+                            <li>Rimpang (2023)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · THE ADAMS</small>
+                        <h3>The Adams</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Viva La Vida (2006)</li>
+                            <li>Beautiful (2008)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · SERINGAI</small>
+                        <h3>Seringai</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Serigala Militia (2005)</li>
+                            <li>Taring (2010)</li>
+                            <li>Seperti Api (2021)</li>
+                            <li>IV: Anastasis (2026)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="article">
+                    <div class="article-info">
+                        <small>DISKOGRAFI · THE PANTURAS</small>
+                        <h3>The Panturas</h3>
+                        <ul style="margin-top:10px; padding-left:18px; color:#555; font-size:14px; line-height:2;">
+                            <li>Mabuk Laut (2018)</li>
+                            <li>Ombak Banyu Asmara (2021)</li>
+                            <li>Knights of Jahannam & Soma Gospel (Maxi-Single, 2025)</li>
+                        </ul>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- =========================
+     PAGE: ARTIST PROFILE (TEMPLATE)
+========================= -->
+<div id="page-artist" class="page">
+    <div class="artist-hero">
+        <button class="artist-back" onclick="showPage('musik')">← KEMBALI KE MUSIK</button>
+        <img id="artistImg" src="" alt="">
+        <div class="artist-hero-overlay">
+            <span class="label-badge" id="artistLabel"></span>
+            <h1 id="artistName"></h1>
+        </div>
+    </div>
+    <div class="artist-content">
+        <div class="artist-meta">
+            <div><strong>Nama</strong><span id="artistMetaName">-</span></div>
+            <div><strong>Genre</strong><span id="artistMetaGenre">-</span></div>
+            <div><strong>Kota</strong><span id="artistMetaCity">-</span></div>
+        </div>
+        <div id="artistBio"></div>
+    </div>
+
+    <section class="artist-related">
+        <div class="section-header"><h2>PROFIL LAINNYA</h2></div>
+        <div class="articles" id="artistRelated"></div>
+    </section>
+</div>
+
+<!-- =========================
+     PAGE: SINEMA
+========================= -->
+<div id="page-sinema" class="page">
+    <section class="page-header">
+        <span class="label">Kategori</span>
+        <h1>SINEMA</h1>
+        <p>Film, series, dokumenter, dan fenomena layar lebar yang membentuk cara kita melihat dunia.</p>
+    </section>
+
+    <div class="filter-bar" id="sinemaSubNav">
+        <button class="active" onclick="filterSinema('all', this)">Semua</button>
+        <button onclick="filterSinema('film', this)">FILM</button>
+        <button onclick="filterSinema('series', this)">SERIES</button>
+        <button onclick="filterSinema('dokumenter', this)">DOKUMENTER</button>
+    </div>
+
+    <section class="featured-segment">
+        <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85" onclick="showArticle('film-series-ramai')">
+        <div class="featured-segment-content">
+            <span class="category">SINEMA · FEATURED</span>
+            <h2>Film dan Series yang Sedang Ramai Dibicarakan</h2>
+            <p>Dari thriller psikologis hingga drama keluarga — inilah yang sedang menjadi perbincangan hangat di kalangan penonton.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header"><h2>ARTIKEL TERBARU</h2></div>
+        <div class="articles">
+
+            <article class="article sinema-card" data-category="film" onclick="showArticle('sinema-lokal-festival-dunia')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1485846234645-a62644f84728"></div>
+                <div class="article-info">
+                    <small>FILM · INTERNASIONAL</small>
+                    <h3>Sinema Lokal yang Menembus Festival Dunia</h3>
+                    <p>Film Indonesia semakin diperhitungkan di kancah global lewat berbagai penghargaan internasional.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="film" onclick="showArticle('kebangkitan-film-horor')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26"></div>
+                <div class="article-info">
+                    <small>FILM · HOROR</small>
+                    <h3>Kebangkitan Film Horor Indonesia</h3>
+                    <p>Genre horor kembali menjadi primadona di layar lebar dengan pendekatan baru yang lebih segar.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="film" onclick="showArticle('drama-keluarga')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c"></div>
+                <div class="article-info">
+                    <small>FILM · DRAMA</small>
+                    <h3>Drama Keluarga yang Menyentuh Hati</h3>
+                    <p>Cerita sederhana tentang keluarga selalu berhasil menyentuh emosi penonton Indonesia.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="series" onclick="showArticle('series-watchlist')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1594908900066-3f47337549d8"></div>
+                <div class="article-info">
+                    <small>SERIES · STREAMING</small>
+                    <h3>Series yang Wajib Masuk Watchlist</h3>
+                    <p>Rekomendasi tontonan yang tidak boleh dilewatkan dari platform streaming populer.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="series" onclick="showArticle('thriller-psikologis')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1"></div>
+                <div class="article-info">
+                    <small>SERIES · THRILLER</small>
+                    <h3>Thriller Psikologis yang Bikin Merinding</h3>
+                    <p>Alur cerita berliku dan plot twist mengejutkan menjadi ciri khas series thriller modern.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="series" onclick="showArticle('series-komedi')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba"></div>
+                <div class="article-info">
+                    <small>SERIES · KOMEDI</small>
+                    <h3>Series Komedi yang Jadi Obat Stres</h3>
+                    <p>Ketawa sehat dengan tontonan ringan yang cocok dinikmati kapan saja.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="dokumenter" onclick="showArticle('dokumenter-sosial')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"></div>
+                <div class="article-info">
+                    <small>DOKUMENTER · SOSIAL</small>
+                    <h3>Dokumenter Sosial yang Menggugah</h3>
+                    <p>Kisah nyata di balik layar yang berhasil membuka mata banyak orang.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="dokumenter" onclick="showArticle('dokumenter-musik')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4"></div>
+                <div class="article-info">
+                    <small>DOKUMENTER · MUSIK</small>
+                    <h3>Dokumenter Musik yang Wajib Ditonton</h3>
+                    <p>Perjalanan karier musisi legendaris yang direkam dengan apik dalam format dokumenter.</p>
+                </div>
+            </article>
+
+            <article class="article sinema-card" data-category="dokumenter" onclick="showArticle('dokumenter-alam')">
+                <div class="article-image"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e"></div>
+                <div class="article-info">
+                    <small>DOKUMENTER · ALAM</small>
+                    <h3>Dokumenter Alam yang Memukau</h3>
+                    <p>Keindahan alam Indonesia yang direkam dengan sinematografi kelas dunia.</p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+</div>
+
+<!-- =========================
+     PAGE: ARTIKEL DETAIL
+========================= -->
+<div id="page-artikel" class="page">
+    <div class="artikel-header">
+        <span class="label" id="artikelLabel">KATEGORI</span>
+        <h1 id="artikelTitle">Judul Artikel</h1>
+        <p class="meta" id="artikelMeta">Oleh Redaksi · Tanggal</p>
+    </div>
+
+    <div class="artikel-hero">
+        <img id="artikelHero" src="" alt="">
+    </div>
+
+    <div class="artikel-body" id="artikelBody"></div>
+
+    <div class="artikel-tools">
+        <button onclick="bookmark(this)">🔖 SIMPAN</button>
+        <button onclick="shareArticle()">↗ SHARE</button>
+        <button class="back" onclick="goBack()">← KEMBALI</button>
+    </div>
+
+    <section class="artist-related">
+        <div class="section-header"><h2>BACA JUGA</h2></div>
+        <div class="articles" id="artikelRelated"></div>
+    </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">
+        <svg class="logo-ik" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="20,40 45,40 35,100 10,100" fill="#ffffff"/>
+            <polygon points="25,20 55,10 50,35 20,45" fill="#e5ff00"/>
+            <polygon points="60,40 85,40 85,65 115,40 145,40 105,72 150,100 118,100 85,75 85,100 60,100" fill="#ffffff"/>
+        </svg>
+        IBARAT KATA
+    </div>
+    <div class="footer-content">
+        <div>
+            <a href="#">ABOUT</a>
+            <a href="#">CONTACT</a>
+            <a href="#">PRIVACY</a>
+        </div>
+        <div>
+            <a href="#">INSTAGRAM</a>
+            <a href="#">X</a>
+            <a href="#">YOUTUBE</a>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2026 IBARAT KATA. All Rights Reserved.<br>
+        Designed &amp; Developed by <strong>Muhammad Abyan</strong>
+    </div>
+</footer>
+
+<script>
+/* =========================
+   DATA ARTIS / BAND
+========================= */
+const ARTISTS = {
+    "sheila-on-7": {
+        name: "Sheila On 7",
+        label: "BAND POP · YOGYAKARTA",
+        genre: "Pop / Pop Rock",
+        city: "Yogyakarta",
+        img: "https://images.unsplash.com/photo-1501612780327-45045538702b",
+        bio: [
+            `Sheila On 7 dibentuk pada 6 Mei 1996 di Yogyakarta oleh sekelompok pelajar SMA yang hobi bermain band. Awalnya mereka menamakan diri "Sheilagank" dan sering tampil di pensi-pensi serta festival band SMA se-Jawa Tengah dan DIY. Nama "Sheila" diambil dari nama teman SMA Eross, sedangkan "On 7" merujuk pada tujuh nada (do-re-mi-fa-sol-la-si).`,
+            `Setelah menandatangani kontrak dengan Sony Music Indonesia pada 1998, mereka berganti nama menjadi Sheila On 7. Formasi inti saat ini terdiri dari Duta (vokal), Eross (gitar), Adam (bass), dan Brian (drum). Mereka adalah satu-satunya band Indonesia yang mampu menjual album fisik lebih dari satu juta kopi secara berturut-turut selama tiga album. Album debut self-titled (1999) melahirkan hits abadi "Dan" dan "Sephia". Hingga kini Sheila On 7 tetap menjadi salah satu band paling dicintai di Indonesia dengan basis penggemar setia yang tersebar di Malaysia, Singapura, dan Brunei.`
+        ]
+    },
+    "noah": {
+        name: "NOAH",
+        label: "BAND POP · BANDUNG",
+        genre: "Pop Rock / Alternative",
+        city: "Bandung",
+        img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f",
+        bio: [
+            `NOAH adalah band pop rock asal Bandung yang dibentuk pada tahun 2000. Awalnya mereka dikenal dengan nama Peterpan, diambil dari nama warung sate kelinci di Puncak, Bogor. Formasi awal terdiri dari Ariel, Andika, Indra, Lukman, Uki, dan Reza. Nama Peterpan melejit lewat album "Taman Langit" (2003) dan puncaknya "Bintang di Surga" (2004) yang terjual lebih dari 3 juta kopi.`,
+            `Setelah Andika dan Indra keluar pada 2006, band ini merilis album "Sebuah Nama, Sebuah Cerita" (2008) dan resmi berganti nama menjadi NOAH pada 1 Agustus 2012. Formasi terkini terdiri dari Ariel (vokal), Lukman (gitar), dan David (keyboard). Sepanjang kariernya, NOAH telah merilis 5 album studio dan menjadi salah satu band dengan penjualan tertinggi di Indonesia. Pada Januari 2024, NOAH mengumumkan hiatus dari industri musik.`
+        ]
+    },
+    "dewa-19": {
+        name: "Dewa 19",
+        label: "BAND POP · ROCK · SURABAYA",
+        genre: "Pop Rock / Arena Rock",
+        city: "Surabaya",
+        img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4",
+        bio: [
+            `Dewa 19 dibentuk pada 26 Agustus 1986 di Surabaya oleh Ahmad Dhani (keyboard/vokal), Erwin Prasetya (bass), Wawan Juniarso (drum), dan Andra Junaidi (gitar). Nama "Dewa" merupakan akronim dari nama para personelnya, sedangkan angka "19" tercipta dari judul album pertama mereka yang dirilis pada 1992 — banyak orang mengira nama band-nya adalah Dewa 19, dan nama itu pun melekat hingga kini.`,
+            `Dewa 19 mencapai masa keemasan pada era 1990-2000-an dengan formasi Ari Lasso (vokal), Andra, Erwin, Dhani, dan Wong Aksan. Mereka masuk daftar "The Immortals: 25 Artis Indonesia Terbesar Sepanjang Masa" versi Rolling Stone (2008) dan menjadi salah satu band dengan pemutaran tertinggi di platform streaming. Formasi terkini terdiri dari Dhani, Andra, Yuke Sampurna (bass), dan Agung Yudha (drum).`
+        ]
+    },
+    "dmasiv": {
+        name: "D'Masiv",
+        label: "BAND POP · POP ROCK · JAKARTA",
+        genre: "Pop Rock",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3",
+        bio: [
+            `D'Masiv dibentuk pada 3 Maret 2003 di Jakarta. Nama "D'Masiv" berasal dari kata bahasa Inggris "massive" sebagai harapan agar band ini meraih hasil maksimal di kancah musik nasional. Formasi mereka konsisten sejak awal: Rian Ekky Pradipta (vokal), Dwiki Aditya Marsall (gitar), Nurul Damar Ramadan (gitar), Rayyi Kurniawan Iskandar Dinata (bass), dan Wahyu Piadji (drum).`,
+            `Nama D'Masiv melambung setelah memenangkan kompetisi A Mild Live Wanted pada 2007. Single "Cinta Ini Membunuhku" dari album debut "Perubahan" (2008) menjadi fenomena dan mengantar mereka sejajar dengan band-band papan atas seperti Ungu, Nidji, dan Peterpan. Hingga kini D'Masiv telah merilis 7 album studio dan tetap aktif menggelar tur, termasuk ke Jepang dan Inggris.`
+        ]
+    },
+    "maliq-dessentials": {
+        name: "Maliq & D'Essentials",
+        label: "BAND POP · SOUL / JAZZ · JAKARTA",
+        genre: "Pop / Soul / Jazz",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+        bio: [
+            `Maliq & D'Essentials berdiri pada 15 Mei 2002 di Jakarta. Nama "MALIQ" merupakan singkatan dari <em>Music And Live Instrument Quality</em>, mencerminkan komitmen mereka terhadap kualitas musikal. Mereka adalah pelopor kebangkitan musik pop-jazz di Indonesia pada era 2000-an, memadukan elemen soul, jazz, funk, dan pop modern dengan sangat apik.`,
+            `Formasi awal terdiri dari 9 personel, namun kini menyisakan 6 personel inti: Angga Puradiredja, Widi Puradiredja, Indah Wisnuwardhana, Dendy "Jawa" Sukarno, Arya "Lale" Aditya Ramadhya, dan Ilman Ibrahim Isa. Album debut "1st" (2005) langsung mendapat sambutan positif, dan mereka terus konsisten merilis karya berkualitas seperti "Free Your Mind" (2007), "Sriwedari" (2013), dan "Raya" (2021). Pada 2024, mereka merilis album "Can Machines Fall In Love?" dengan tema hubungan manusia dan teknologi.`
+        ]
+    },
+    "starrducc": {
+        name: "Starrducc",
+        label: "BAND POP · DREAM POP · BOGOR",
+        genre: "Indie Pop / Dream Pop",
+        city: "Bogor",
+        img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+        bio: [
+            `Starrducc adalah unit indie pop asal Bogor yang digawangi oleh Adji dan Bani (personel The Jansen), Mirakei (penyanyi solo jazz asal Lombok), serta Andreas dan Daniel. Mereka mulai dikenal di kalangan penikmat musik indie lewat gaya musik pop lembut yang berpadu dengan aransemen sederhana dan romantis.`,
+            `Pada 2023, Starrducc merilis dua koleksi EP bertajuk "starrducc" dan "starrducc II". Karya mereka kemudian dilirik oleh label legendaris Jepang, P-Vine Records, dan dirilis secara eksklusif di Jepang pada 2025 melalui album kompilasi "Introducction". Pencapaian ini menjadikan Starrducc salah satu band indie Indonesia yang berhasil menembus pasar internasional.`
+        ]
+    },
+    "pee-wee-gaskins": {
+        name: "Pee Wee Gaskins",
+        label: "POP PUNK · EASY CORE · JAKARTA",
+        genre: "Pop Punk / Easycore",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+        bio: [
+            `Pee Wee Gaskins (PWG) resmi terbentuk pada 11 April 2007 di Jakarta. Mereka adalah salah satu pionir dan ikon skena pop punk modern Indonesia, dengan gaya easycore yang energik dan lirik yang relatable bagi anak muda. Formasi mereka konsisten sejak 2008: Dochi Sadega (bass/vokal), Sansan (gitar/vokal), Ayi Mahardhika (gitar), Omo (synth), dan Aldy (drum).`,
+            `PWG mengawali karier dengan tampil tanpa dibayar di berbagai panggung kecil. Album debut "Stories From Our High School Years" (2008) langsung meledak dan menjadikan mereka fenomena cult di kalangan anak muda. Basis penggemar mereka dikenal dengan sebutan "Party Dorks". Hingga kini PWG telah merilis 4 album studio dan 4 mini album, serta tetap aktif menggelar tur, termasuk ke Australia dan Asia.`
+        ]
+    },
+    "rocket-rockers": {
+        name: "Rocket Rockers",
+        label: "POP PUNK · BANDUNG",
+        genre: "Pop Punk / Melodic Punk",
+        city: "Bandung",
+        img: "https://images.unsplash.com/photo-1551958219-acbc608c6377",
+        bio: [
+            `Rocket Rockers dibentuk pada 17 Agustus 1999 di halaman Masjid Al Munah Najah, Bandung. Awalnya mereka bernama "Immorality President" sebelum akhirnya berganti nama menjadi Rocket Rockers. Formasi terkini terdiri dari Aska Pratama (gitar/vokal), Bisma Aria Nugraha (bass), dan Khrisna (drum).`,
+            `Rocket Rockers adalah salah satu band pop punk paling berpengaruh di Indonesia. Mereka menjadi satu-satunya band Indonesia yang masuk dalam kompilasi internasional "Punk's Not Dead". Sepanjang karier mereka telah merilis lebih dari 10 album, termasuk "Soundtrack For Your Life" (2001), "Ras Bebas" (2004), dan "Better Seasons" (2008). Mereka tetap konsisten berkarya dan menjadi rujukan dalam skena punk melodik Indonesia.`
+        ]
+    },
+    "stand-here-alone": {
+        name: "Stand Here Alone",
+        label: "POP PUNK · MELODIC PUNK · BANDUNG",
+        genre: "Pop Punk / Melodic Punk",
+        city: "Bandung",
+        img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+        bio: [
+            `Stand Here Alone (SHA) berdiri pada 17 Agustus 2010 di Bandung. Band ini awalnya terbentuk untuk meramaikan perayaan kemerdekaan di daerah Padjajaran, Bandung. Formasi mereka adalah trio: Mbenk (bass/vokal), Ocan (gitar/vokal), dan Chio (drum).`,
+            `SHA dikenal dengan aksi unik mereka: membagikan CD album secara gratis dari atas panggung kepada penonton. Lirik lagu mereka tidak hanya bertema cinta, tetapi juga mengangkat isu sosial dan kehidupan sehari-hari. Album "Indah Tak Sempurna" (2016) dan "Ceria" (2023) menjadi salah satu rilisan penting mereka. SHA tetap aktif merilis karya dan tampil di berbagai festival musik.`
+        ]
+    },
+    "closehead": {
+        name: "Closehead",
+        label: "POP PUNK · MELODIC PUNK · BANDUNG",
+        genre: "Pop Punk / Melodic Punk",
+        city: "Bandung",
+        img: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3",
+        bio: [
+            `Closehead adalah band pop punk legendaris asal Bandung yang terbentuk pada tahun 1997. Mereka dikenal sebagai salah satu pelopor genre melodic punk di Indonesia. Band ini didirikan oleh Ijan (drum) bersama Tyo dan beberapa personel lain saat mereka masih duduk di bangku SMP.`,
+            `Lagu "Berdiri Teman" menjadi anthem bagi banyak penggemar musik punk di Indonesia. Setelah melalui berbagai perubahan formasi, inti band tetap dipegang oleh Ijan (drum) dan Lamlam (bass/vokal), dengan tambahan Praz Teguh (vokal/gitar) yang bergabung pada 2023. Pada 2025, mereka merilis ulang "Berdiri Teman" dalam edisi 20th Anniversary dan tetap aktif merilis karya baru seperti single "Arti Yang Sama".`
+        ]
+    },
+    "for-revenge": {
+        name: "For Revenge",
+        label: "POP PUNK · EMO · BANDUNG",
+        genre: "Pop Punk / Emo",
+        city: "Bandung",
+        img: "https://images.unsplash.com/photo-1517466787929-bc90951d0974",
+        bio: [
+            `For Revenge dibentuk pada 18 April 2006 di Bandung. Mereka mengusung genre pop punk dengan sentuhan emo, alternative rock, dan post-hardcore. Formasi terkini terdiri dari Boniex Noer (vokal), Arief Ismail (gitar), Izha Muhammad (bass), dan Archims Pribadi (drum).`,
+            `For Revenge dikenal dengan lirik yang emosional dan intens. Album "Perayaan Patah Hati - Babak 1" (2022) menjadi salah satu rilisan paling sukses mereka. Pada 2025, mereka meraih penghargaan Duo/Group/Band Of The Year di Indonesian Music Awards (IMA) 2025. Mereka juga dipercaya mengisi soundtrack untuk film "Spider-Man" versi Indonesia.`
+        ]
+    },
+    "fstvlst": {
+        name: "FSTVLST",
+        label: "INDIE ROCK · ART PUNK · YOGYAKARTA",
+        genre: "Indie Rock / Art Punk",
+        city: "Yogyakarta",
+        img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f",
+        bio: [
+            `FSTVLST (dibaca "Festivalist") lahir di Yogyakarta pada 2011 dari rahim band Jenny, sebuah band garage rock ala The Strokes yang sempat memiliki massa solid di Yogyakarta. Formasi tetap mereka terdiri dari Farid Stevy Asta (vokal), Roby Setiawan (gitar), dan personel lainnya yang sama-sama berlatar belakang desain dan seni rupa.`,
+            `FSTVLST mendeskripsikan genre mereka sebagai "Almost Rock Barely Art" — sebuah peleburan antara musik rock dengan seni visual. Debut album "Hits Kitsch" (2014) menjadi penanda kehadiran mereka di skena independen. Mereka juga dikenal aktif dalam gerakan sosial seperti #DaraSetara dan platform Arisan Warisan. Pada 2026, mereka akan merilis album ketiga yang digambarkan sebagai "Kisah Kembali Menuju Permulaan".`
+        ]
+    },
+    "feast": {
+        name: ".Feast",
+        label: "INDIE ROCK · ALTERNATIVE · JAKARTA",
+        genre: "Indie Rock / Alternative",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1485846234645-a62644f84728",
+        bio: [
+            `.Feast dibentuk pada 2012 oleh sekelompok mahasiswa Fakultas Ilmu Sosial dan Ilmu Politik Universitas Indonesia (FISIP UI). Formasi mereka terdiri dari Daniel Baskara Putra atau Hindia (vokal/synth), Adnan Satyanugraha Putra (gitar), Dicky Renanda Putra (gitar), Fadli Fikriawan Wibowo (bass), dan Adrianus Aristo Haryo (drum).`,
+            `.Feast dikenal sebagai band yang paling vokal mengkritik pemerintah melalui lirik-liriknya yang tajam. Album debut "Multiverses" (2017) langsung menempatkan mereka sebagai salah satu band paling berpengaruh dalam satu dekade terakhir. Mereka terus merilis karya seperti "Uang Muka" (2020), "Abdi Lara Insani" (2022), dan "Membangun & Menghancurkan" (2024). Single "Peradaban" menjadi salah satu lagu paling viral dan berpengaruh di kalangan anak muda Indonesia.`
+        ]
+    },
+    "efek-rumah-kaca": {
+        name: "Efek Rumah Kaca",
+        label: "INDIE ROCK · ART ROCK · JAKARTA",
+        genre: "Indie Rock / Art Rock",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4",
+        bio: [
+            `Efek Rumah Kaca (ERK) berdiri pada tahun 2001 di Jakarta. Formasi mereka terdiri dari Cholil Mahmud (vokal/gitar), Adrian Yunan Faisal (bass/kibor), dan Akbar Bagaskara (drum). ERK adalah salah satu band indie paling dihormati di Indonesia karena kedalaman lirik dan eksplorasi musikal mereka.`,
+            `Lirik-lirik ERK sering bersifat satir dan mengangkat keresahan sosial, menjadikan mereka sebagai penyuara isu-isu sosial di Indonesia. Album debut self-titled (2007) langsung mendapat pujian kritis, disusul "Kamar Gelap" (2008), "Sinestesia" (2015), dan "Rimpang" (2023) yang disebut sebagai salah satu rilisan paling ditunggu dalam musik Indonesia modern. Vokalis Cholil Mahmud dikenal sebagai musisi yang sejak awal menolak tunduk pada industri musik komersial.`
+        ]
+    },
+    "the-adams": {
+        name: "The Adams",
+        label: "INDIE ROCK · POWER POP · JAKARTA",
+        genre: "Indie Rock / Power Pop",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3",
+        bio: [
+            `The Adams dibentuk pada tahun 2001 di Jakarta dengan nama "Lonely Band", sebelum berganti nama menjadi The Adams pada 2002. Mereka adalah band indie rock dengan warna musik power pop yang khas — perpaduan rock, pop, dan lirik yang unik serta penuh permainan kata. Formasi terkini terdiri dari Ario (gitar/vokal), Saleh (gitar/vokal), Gigih (drum), dan Setia Darmawan (bass).`,
+            `The Adams dikenal mampu menciptakan lagu dengan nuansa ringan tetapi tetap cerdas. Mereka tetap dianggap sebagai salah satu band independen Indonesia yang berhasil mempertahankan identitas musiknya tanpa harus mengikuti tren pasar secara berlebihan. Album "Viva La Vida" (2006) dan "Beautiful" (2008) menjadi rilisan penting mereka.`
+        ]
+    },
+    "seringai": {
+        name: "Seringai",
+        label: "HARD ROCK · METAL · JAKARTA",
+        genre: "Hard Rock / Metal",
+        city: "Jakarta",
+        img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+        bio: [
+            `Seringai dibentuk pada tahun 2002 di Jakarta. Mereka adalah band high-octane rock/metal yang dikenal dengan lirik penuh kritik sosial dan energi panggung yang membara. Formasi awal terdiri dari Arian 13 (vokal), Ricky Siahaan (gitar), Sammy Bramantyo (bass), dan Edy "Khemod" Susanto (drum).`,
+            `Seringai adalah salah satu ikon musik keras di Indonesia. Album "Serigala Militia" (2005) dan "Taring" (2010) menjadi rilisan penting mereka. Setelah sempat hiatus, Seringai kembali dengan album keempat "IV: Anastasis" pada 2026. Mereka juga aktif menggelar tur internasional, termasuk ke Taiwan dan Jepang pada 2025.`
+        ]
+    },
+    "the-panturas": {
+        name: "The Panturas",
+        label: "INDIE ROCK · SURF ROCK · JATINANGOR",
+        genre: "Indie Rock / Surf Rock",
+        city: "Jatinangor",
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+        bio: [
+            `The Panturas dibentuk pada tahun 2015 di Jatinangor, Sumedang, Jawa Barat. Mereka adalah band surf rock yang membawa nuansa pantai dan gaya retro ke dalam skena musik independen Indonesia. Formasi mereka terdiri dari Abyan Nabilio atau Acin (vokal/gitar), Surya Fikri atau Kuya (drum), Rizal Taufik (gitar), dan Gogon (bass).`,
+            `Musik The Panturas energik dan penuh warna, sering mengangkat budaya Sunda dan kehidupan pesisir dalam lirik mereka. Album "Mabuk Laut" (2018) dan "Ombak Banyu Asmara" (2021) memperkuat posisi mereka di kancah musik independen. Pada 2025, The Panturas menjadi salah satu band Indonesia yang tampil di Fuji Rock Festival, Jepang — salah satu festival musik paling bergengsi di Asia.`
+        ]
+    }
+};
+
+/* =========================
+   DATA ARTIKEL FASHION
+========================= */
+const FASHION_ARTICLES = [
+    { id: "streetwear-lokal-mendunia", category: "streetwear", categoryLabel: "STREETWEAR", title: "Streetwear Lokal yang Mulai Mendunia", excerpt: "Bagaimana brand-brand lokal membangun identitas visual dan menembus pasar global melalui kolaborasi, komunitas, dan storytelling yang kuat.", img: "https://images.unsplash.com/photo-1523398002811-999ca8dec234", featured: true },
+    { id: "kolaborasi-brand-seniman-mural", category: "streetwear", categoryLabel: "STREETWEAR", title: "Kolaborasi Brand Lokal dengan Seniman Mural", excerpt: "Batas antara seni jalanan dan fashion semakin kabur.", img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c", featured: false },
+    { id: "thrifting-gaya-hidup", category: "thrifting", categoryLabel: "THRIFTING", title: "Thrifting sebagai Gaya Hidup", excerpt: "Generasi muda memilih fashion sirkular karena sadar lingkungan.", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d", featured: false },
+    { id: "runway-budaya-pop", category: "runway", categoryLabel: "RUNWAY", title: "Ketika Runway Bertemu Budaya Pop", excerpt: "Desainer muda berani mengangkat narasi lokal ke panggung global.", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b", featured: false },
+    { id: "brand-lokal-go-international", category: "brand-lokal", categoryLabel: "BRAND LOKAL", title: "Brand Lokal Tembus Pasar Internasional", excerpt: "Dari marketplace lokal hingga butik di Tokyo dan Seoul.", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8", featured: false },
+    { id: "sneaker-culture-indonesia", category: "streetwear", categoryLabel: "STREETWEAR", title: "Sneaker Culture di Indonesia Semakin Matang", excerpt: "Komunitas sneaker lokal terus tumbuh dengan event dan kolaborasi.", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3", featured: false }
+];
+
+/* =========================
+   DATA ARTIKEL LENGKAP
+========================= */
+const ARTICLES = {
+    "streetwear-lokal-mendunia": {
+        category: "FASHION",
+        title: "Streetwear Lokal yang Mulai Mendunia",
+        meta: "Oleh Redaksi IBARAT KATA · 10 Februari 2026",
+        img: "https://images.unsplash.com/photo-1523398002811-999ca8dec234",
+        body: [
+            "Dalam satu dekade terakhir, streetwear lokal Indonesia telah bertransformasi dari sekadar kaos oblong dengan sablon sederhana menjadi sebuah ekosistem kreatif yang serius. Brand-brand yang lahir di Bandung, Jakarta, dan Yogyakarta kini berani tampil di panggung internasional dengan identitas visual yang kuat.",
+            "Kolaborasi menjadi salah satu strategi utama. Bekerja sama dengan seniman mural, musisi indie, hingga komunitas skateboard, brand lokal berhasil membangun narasi yang bukan hanya soal produk, tetapi juga soal nilai dan budaya.",
+            "Media sosial memainkan peran besar. Instagram dan TikTok menjadi etalase gratis yang memungkinkan brand lokal menjangkau audiens global tanpa harus membuka toko fisik di luar negeri. Beberapa brand bahkan berhasil menembus pasar Jepang dan Korea Selatan melalui platform ini.",
+            "Tantangan tetap ada. Produksi massal dengan kualitas konsisten, distribusi, dan perlindungan hak kekayaan intelektual menjadi pekerjaan rumah yang tidak ringan. Namun semangat komunitas yang tumbuh sejak lama menjadi modal utama untuk terus melaju."
+        ]
+    },
+    "kolaborasi-brand-seniman-mural": {
+        category: "FASHION",
+        title: "Kolaborasi Brand Lokal dengan Seniman Mural",
+        meta: "Oleh Redaksi IBARAT KATA · 8 Februari 2026",
+        img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
+        body: [
+            "Batas antara seni jalanan dan fashion semakin kabur. Brand-brand lokal kini rutin mengajak seniman mural untuk merancang koleksi kapsul yang tidak hanya indah dipandang, tetapi juga sarat makna.",
+            "Proses kolaborasi ini biasanya dimulai dari diskusi panjang antara desainer dan seniman. Mereka mencari titik temu antara estetika visual dan pesan yang ingin disampaikan. Hasilnya adalah koleksi yang terasa personal dan tidak generik.",
+            "Respons pasar pun positif. Koleksi hasil kolaborasi sering kali habis dalam hitungan jam setelah diluncurkan. Hal ini menunjukkan bahwa konsumen muda Indonesia semakin menghargai karya yang punya cerita."
+        ]
+    },
+    "thrifting-gaya-hidup": {
+        category: "FASHION",
+        title: "Thrifting sebagai Gaya Hidup",
+        meta: "Oleh Redaksi IBARAT KATA · 5 Februari 2026",
+        img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d",
+        body: [
+            "Thrifting bukan lagi sekadar alternatif murah. Bagi banyak anak muda, membeli pakaian bekas layak pakai adalah pernyataan sikap terhadap industri fast fashion yang dinilai merusak lingkungan.",
+            "Fashion sirkular menjadi konsep yang semakin populer. Alih-alih membeli baru setiap musim, mereka memilih memperpanjang usia pakai pakaian, menukar dengan teman, atau menjual kembali barang yang tidak lagi dipakai.",
+            "Komunitas thrifting tumbuh subur di berbagai kota. Mereka menggelar bazar rutin, berbagi tips berburu barang bagus, dan mengedukasi publik tentang pentingnya konsumsi yang bertanggung jawab."
+        ]
+    },
+    "runway-budaya-pop": {
+        category: "FASHION",
+        title: "Ketika Runway Bertemu Budaya Pop",
+        meta: "Oleh Redaksi IBARAT KATA · 3 Februari 2026",
+        img: "https://images.unsplash.com/photo-1483985988355-763728e1935b",
+        body: [
+            "Desainer muda Indonesia semakin berani mengangkat narasi lokal ke panggung global. Mereka tidak lagi takut dianggap 'kampungan' karena justru keunikan budaya inilah yang membuat karya mereka diperhatikan.",
+            "Referensi budaya pop — dari lagu dangdut, film klasik, hingga meme internet — kini menjadi sumber inspirasi yang sah dalam dunia mode. Hasilnya adalah koleksi yang segar, lucu, dan tetap relevan dengan zaman.",
+            "Panggung runway pun berubah. Bukan lagi hanya soal pakaian, tetapi soal pertunjukan yang menyatukan musik, tarian, dan narasi visual."
+        ]
+    },
+    "brand-lokal-go-international": {
+        category: "FASHION",
+        title: "Brand Lokal Tembus Pasar Internasional",
+        meta: "Oleh Redaksi IBARAT KATA · 28 Januari 2026",
+        img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8",
+        body: [
+            "Dari marketplace lokal hingga butik di Tokyo dan Seoul, brand lokal Indonesia perlahan tapi pasti menemukan tempatnya di pasar global. Kuncinya adalah konsistensi dan pemahaman mendalam tentang audiens.",
+            "Beberapa brand memilih bermain di ceruk pasar spesifik, misalnya pakaian outdoor, batik modern, atau streetwear dengan sentuhan etnik. Strategi ini terbukti lebih efektif daripada mencoba menyenangkan semua orang.",
+            "Dukungan pemerintah dan komunitas diaspora juga berperan penting. Pameran dagang di luar negeri dan kolaborasi dengan influencer internasional menjadi pintu masuk yang efektif."
+        ]
+    },
+    "sneaker-culture-indonesia": {
+        category: "FASHION",
+        title: "Sneaker Culture di Indonesia Semakin Matang",
+        meta: "Oleh Redaksi IBARAT KATA · 25 Januari 2026",
+        img: "https://images.unsplash.com/photo-1552346154-21d32810aba3",
+        body: [
+            "Komunitas sneaker di Indonesia terus tumbuh. Event seperti sneaker expo, meetup, dan lelang daring kini menjadi agenda rutin yang dinanti banyak orang.",
+            "Bukan hanya soal koleksi, sneaker culture juga mendorong lahirnya brand lokal yang fokus pada sepatu. Mereka berani bersaing dengan merek global dengan mengusung desain unik dan harga yang lebih terjangkau.",
+            "Media sosial menjadi katalis utama. Ulasan, foto, dan video unboxing dari para sneakerhead berhasil menciptakan buzz yang menguntungkan seluruh ekosistem."
+        ]
+    },
+
+    "sepakbola-culture": {
+        category: "SEPAK BOLA",
+        title: "Ketika Sepak Bola Menjadi Bagian dari Culture",
+        meta: "Oleh Redaksi IBARAT KATA · 9 Februari 2026",
+        img: "https://images.unsplash.com/photo-1522778119026-d647f0596c20",
+        body: [
+            "Sepak bola bukan hanya tentang pertandingan. Ia adalah identitas, bahasa persatuan, dan cara hidup bagi jutaan orang di Indonesia.",
+            "Di tribun stadion, suporter menciptakan koreografi yang tidak kalah dengan pertunjukan seni. Mereka menyanyi, menabuh drum, dan mengibarkan bendera dengan penuh dedikasi.",
+            "Di jalanan kota, sepak bola hadir dalam bentuk lapangan kecil, jersei yang dipakai sehari-hari, dan obrolan warung kopi. Ia menyatukan orang dari berbagai latar belakang."
+        ]
+    },
+    "koreografi-tribun": {
+        category: "SEPAK BOLA",
+        title: "Koreografi Tribun yang Jadi Karya Seni",
+        meta: "Oleh Redaksi IBARAT KATA · 6 Februari 2026",
+        img: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d",
+        body: [
+            "Suporter Indonesia dikenal dengan kreativitas visualnya. Koreografi yang mereka siapkan sebelum pertandingan sering kali menyita perhatian bahkan di media internasional.",
+            "Persiapan bisa memakan waktu berbulan-bulan. Mereka mendesain pola, mengumpulkan dana, dan berlatih bersama agar saat pertandingan tiba, semuanya berjalan sempurna.",
+            "Lebih dari sekadar tontonan, koreografi adalah bentuk ekspresi identitas. Ia menyampaikan pesan, membangun kebanggaan, dan mempererat ikatan antaranggota komunitas."
+        ]
+    },
+    "sepakbola-bahasa-persatuan": {
+        category: "SEPAK BOLA",
+        title: "Sepak Bola sebagai Bahasa Persatuan",
+        meta: "Oleh Redaksi IBARAT KATA · 2 Februari 2026",
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+        body: [
+            "Di lapangan, semua perbedaan melebur menjadi satu. Suku, agama, dan kelas sosial seolah hilang saat bola mulai digelindingkan.",
+            "Fenomena ini membuat sepak bola menjadi alat pemersatu yang efektif. Banyak program sosial menggunakan sepak bola untuk mendekatkan anak-anak dari berbagai latar belakang.",
+            "Tentu saja tidak selalu mulus. Rivalitas kadang memicu konflik. Namun ketika dikelola dengan baik, sepak bola justru menjadi ruang belajar toleransi dan sportivitas."
+        ]
+    },
+    "peta-persaingan-liga": {
+        category: "SEPAK BOLA",
+        title: "Peta Persaingan Liga Musim Ini",
+        meta: "Oleh Redaksi IBARAT KATA · 30 Januari 2026",
+        img: "https://images.unsplash.com/photo-1551958219-acbc608c6377",
+        body: [
+            "Musim ini menyajikan persaingan yang lebih ketat dibanding beberapa tahun terakhir. Beberapa tim kejutan berhasil menempel ketat tim-tim favorit.",
+            "Faktor kebugaran pemain dan kedalaman skuad akan menjadi penentu di paruh kedua musim. Tim yang mampu menjaga konsistensi biasanya keluar sebagai juara.",
+            "Bagi penggemar, ini adalah musim yang menarik untuk diikuti. Setiap pekan menghadirkan cerita baru yang sulit diprediksi."
+        ]
+    },
+
+    "skena-musik-indie": {
+        category: "MUSIK",
+        title: "Skena Musik Indie yang Terus Berkembang",
+        meta: "Oleh Redaksi IBARAT KATA · 7 Februari 2026",
+        img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81",
+        body: [
+            "Dari panggung kecil di kafe hingga festival besar, musik indie Indonesia semakin memiliki tempat di hati generasi muda.",
+            "Kemudahan distribusi digital membuat musisi bisa merilis karya tanpa harus bergantung pada label besar. Ini membuka peluang lebih luas bagi suara-suara baru.",
+            "Tantangannya adalah keberlanjutan. Banyak musisi indie harus membagi waktu antara berkarya dan mencari nafkah. Namun semangat komunitas membuat skena ini terus hidup."
+        ]
+    },
+    "rilisan-album-baru": {
+        category: "MUSIK",
+        title: "Rilisan Album Baru yang Patut Didengar",
+        meta: "Oleh Redaksi IBARAT KATA · 4 Februari 2026",
+        img: "https://images.unsplash.com/photo-1483412033650-1015ddeb83d1",
+        body: [
+            "Beberapa album baru dari musisi Indonesia berhasil mencuri perhatian dengan pendekatan yang segar dan berani.",
+            "Mulai dari eksplorasi elektronik hingga kembalinya suara gitar yang jujur, ragam rilisan ini menunjukkan bahwa skena musik lokal sedang dalam kondisi sehat.",
+            "Bagi pendengar, ini adalah waktu yang tepat untuk menjelajah dan menemukan suara baru yang mungkin belum pernah didengar sebelumnya."
+        ]
+    },
+
+    "film-series-ramai": {
+        category: "SINEMA",
+        title: "Film dan Series yang Sedang Ramai Dibicarakan",
+        meta: "Oleh Redaksi IBARAT KATA · 1 Februari 2026",
+        img: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85",
+        body: [
+            "Dari thriller psikologis hingga drama keluarga, beberapa film dan series sedang menjadi perbincangan hangat di kalangan penonton.",
+            "Platform streaming memainkan peran besar dalam perubahan ini. Penonton kini punya akses lebih luas ke karya dari berbagai negara.",
+            "Diskusi di media sosial membuat tontonan menjadi pengalaman kolektif. Menonton bukan lagi aktivitas sendirian, tetapi juga cara untuk terhubung dengan orang lain."
+        ]
+    },
+    "sinema-lokal-festival-dunia": {
+        category: "SINEMA",
+        title: "Sinema Lokal yang Menembus Festival Dunia",
+        meta: "Oleh Redaksi IBARAT KATA · 8 Februari 2026",
+        img: "https://images.unsplash.com/photo-1485846234645-a62644f84728",
+        body: [
+            "Film Indonesia semakin diperhitungkan di kancah global. Beberapa judul berhasil masuk dan bahkan memenangkan penghargaan di festival bergengsi.",
+            "Kuncinya adalah cerita yang kuat dan eksekusi sinematografi yang matang. Festival internasional mencari suara yang unik, dan sineas Indonesia mampu menyediakannya.",
+            "Dukungan pemerintah dan komunitas film sangat penting. Tanpa ekosistem yang sehat, karya-karya berkualitas sulit untuk terus lahir."
+        ]
+    },
+    "kebangkitan-film-horor": {
+        category: "SINEMA",
+        title: "Kebangkitan Film Horor Indonesia",
+        meta: "Oleh Redaksi IBARAT KATA · 5 Februari 2026",
+        img: "https://images.unsplash.com/photo-1478720568477-152d9b164e26",
+        body: [
+            "Genre horor kembali menjadi primadona di layar lebar. Pendekatan baru yang lebih segar membuat genre ini tidak lagi terasa monoton.",
+            "Salah satu tren yang menarik adalah penggabungan horor dengan isu sosial. Film tidak hanya menakut-nakuti, tetapi juga mengajak penonton berpikir.",
+            "Respons penonton sangat positif. Ini menunjukkan bahwa pasar Indonesia haus akan cerita horor yang dikerjakan dengan serius dan cerdas."
+        ]
+    },
+    "drama-keluarga": {
+        category: "SINEMA",
+        title: "Drama Keluarga yang Menyentuh Hati",
+        meta: "Oleh Redaksi IBARAT KATA · 3 Februari 2026",
+        img: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c",
+        body: [
+            "Cerita sederhana tentang keluarga selalu berhasil menyentuh emosi penonton Indonesia. Tidak heran jika genre drama keluarga terus diproduksi setiap tahun.",
+            "Yang membedakan satu film dengan yang lain adalah kejujuran dalam bercerita. Penonton bisa merasakan mana cerita yang dibuat asal-asalan dan mana yang benar-benar digarap dengan hati.",
+            "Beberapa film drama keluarga terbaik Indonesia bahkan berhasil masuk ke festival film internasional, membuktikan bahwa cerita universal bisa datang dari mana saja."
+        ]
+    },
+    "series-watchlist": {
+        category: "SINEMA",
+        title: "Series yang Wajib Masuk Watchlist",
+        meta: "Oleh Redaksi IBARAT KATA · 1 Februari 2026",
+        img: "https://images.unsplash.com/photo-1594908900066-3f47337549d8",
+        body: [
+            "Platform streaming terus merilis series baru setiap bulan. Dari yang lokal hingga internasional, pilihan tontonan semakin banyak.",
+            "Beberapa series berhasil mencuri perhatian karena alur cerita yang kuat dan karakter yang mendalam. Tidak heran jika mereka menjadi perbincangan di media sosial.",
+            "Bagi yang bingung memilih, mulailah dari series dengan rating tinggi dan ulasan positif dari kritikus. Biasanya series seperti ini tidak akan mengecewakan."
+        ]
+    },
+    "thriller-psikologis": {
+        category: "SINEMA",
+        title: "Thriller Psikologis yang Bikin Merinding",
+        meta: "Oleh Redaksi IBARAT KATA · 29 Januari 2026",
+        img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1",
+        body: [
+            "Thriller psikologis punya daya tarik tersendiri. Ia tidak hanya menakut-nakuti, tetapi juga mengajak penonton masuk ke dalam pikiran karakter.",
+            "Alur cerita berliku dan plot twist mengejutkan menjadi ciri khas series thriller modern. Penonton dibuat terus menebak hingga episode terakhir.",
+            "Beberapa series thriller terbaik bahkan meninggalkan pertanyaan filosofis yang membuat penonton berpikir lama setelah menontonnya."
+        ]
+    },
+    "series-komedi": {
+        category: "SINEMA",
+        title: "Series Komedi yang Jadi Obat Stres",
+        meta: "Oleh Redaksi IBARAT KATA · 27 Januari 2026",
+        img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+        body: [
+            "Di tengah rutinitas yang padat, menonton series komedi menjadi cara efektif untuk melepas stres. Tontonan ringan dengan humor segar selalu punya tempat di hati penonton.",
+            "Series komedi terbaik bukan hanya lucu, tetapi juga menghadirkan karakter yang relatable. Penonton bisa melihat diri mereka sendiri dalam situasi konyol yang ditampilkan.",
+            "Beberapa series komedi lokal bahkan berhasil menembus pasar internasional, membuktikan bahwa humor Indonesia punya daya tarik universal."
+        ]
+    },
+    "dokumenter-sosial": {
+        category: "SINEMA",
+        title: "Dokumenter Sosial yang Menggugah",
+        meta: "Oleh Redaksi IBARAT KATA · 25 Januari 2026",
+        img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+        body: [
+            "Dokumenter sosial punya kekuatan untuk membuka mata banyak orang. Kisah nyata di balik layar sering kali lebih menggugah daripada fiksi.",
+            "Sineas dokumenter Indonesia semakin berani mengangkat isu-isu yang jarang tersentuh. Mereka merekam realitas apa adanya tanpa mengurangi kedalaman cerita.",
+            "Dampaknya nyata. Beberapa dokumenter berhasil memicu diskusi publik dan bahkan perubahan kebijakan di tingkat lokal."
+        ]
+    },
+    "dokumenter-musik": {
+        category: "SINEMA",
+        title: "Dokumenter Musik yang Wajib Ditonton",
+        meta: "Oleh Redaksi IBARAT KATA · 23 Januari 2026",
+        img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4",
+        body: [
+            "Dokumenter musik memberi kita kesempatan untuk mengenal lebih dekat sosok musisi yang kita kagumi. Perjalanan karier mereka direkam dengan apik dalam format dokumenter.",
+            "Beberapa dokumenter musik berhasil menangkap momen-momen penting yang tidak pernah terungkap ke publik. Ini membuat penonton merasa lebih terhubung dengan musisi favorit mereka.",
+            "Tidak hanya soal musik, dokumenter ini juga menyoroti konteks sosial dan budaya yang membentuk karya-karya sang musisi."
+        ]
+    },
+    "dokumenter-alam": {
+        category: "SINEMA",
+        title: "Dokumenter Alam yang Memukau",
+        meta: "Oleh Redaksi IBARAT KATA · 20 Januari 2026",
+        img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
+        body: [
+            "Keindahan alam Indonesia menjadi sumber inspirasi tak habis bagi para sineas dokumenter. Dengan sinematografi kelas dunia, mereka merekam keajaiban yang jarang dilihat mata.",
+            "Dari bawah laut Raja Ampat hingga puncak pegunungan Papua, setiap sudut negeri ini menyimpan cerita yang layak dibagikan ke dunia.",
+            "Dokumenter alam bukan hanya soal keindahan, tetapi juga soal kesadaran lingkungan. Banyak di antaranya mengajak penonton untuk lebih peduli pada alam sekitar."
+        ]
+    }
+};
+
+/* =========================
+   RENDER GRID ARTIS
+========================= */
+function renderArtistGrid() {
+    const grid = document.getElementById('artistGrid');
+    if (!grid) return;
+
+    grid.innerHTML = Object.keys(ARTISTS).map(id => {
+        const a = ARTISTS[id];
+        const teaser = a.bio[0].replace(/<[^>]+>/g, '').slice(0, 110) + '...';
+        return `
+            <article class="article" onclick="showArtist('${id}')">
+                <div class="article-image"><img src="${a.img}" alt="${a.name}"></div>
+                <div class="article-info">
+                    <small>${a.label}</small>
+                    <h3>${a.name}</h3>
+                    <p>${teaser}</p>
+                    <p style="margin-top:10px; font-weight:bold; color:#111; font-size:12px;">BACA PROFIL LENGKAP →</p>
+                </div>
+            </article>
+        `;
+    }).join('');
+}
+
+/* =========================
+   RENDER ARTIKEL FASHION
+========================= */
+function renderFashionGrid(filter = 'all') {
+    const grid = document.getElementById('fashionGrid');
+    if (!grid) return;
+
+    let articles = FASHION_ARTICLES;
+    if (filter !== 'all') articles = articles.filter(a => a.category === filter);
+
+    if (articles.length === 0) {
+        grid.innerHTML = '<div class="error-msg">Belum ada artikel untuk kategori ini.</div>';
+        return;
+    }
+
+    grid.innerHTML = articles.map(a => `
+        <article class="article fashion-card" data-category="${a.category}" onclick="showArticle('${a.id}')">
+            <div class="article-image"><img src="${a.img}" alt="${a.title}"></div>
+            <div class="article-info">
+                <small>${a.categoryLabel}</small>
+                <h3>${a.title}</h3>
+                <p>${a.excerpt}</p>
+                <div class="actions">
+                    <button onclick="event.stopPropagation();bookmark(this)">🔖 SIMPAN</button>
+                    <button onclick="event.stopPropagation();shareArticle()">↗ SHARE</button>
+                </div>
+            </div>
+        </article>
+    `).join('');
+}
+
+function renderFashionFeatured() {
+    const box = document.getElementById('fashionFeatured');
+    if (!box) return;
+
+    const feat = FASHION_ARTICLES.find(a => a.featured) || FASHION_ARTICLES[0];
+    if (!feat) return;
+
+    box.innerHTML = `
+        <img src="${feat.img}" alt="${feat.title}" onclick="showArticle('${feat.id}')">
+        <div class="featured-segment-content">
+            <span class="category">${feat.categoryLabel} · FEATURED</span>
+            <h2>${feat.title}</h2>
+            <p>${feat.excerpt}</p>
+        </div>
+    `;
+}
+
+function filterFashion(category, btnEl) {
+    document.querySelectorAll('#fashionSubNav button').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    renderFashionGrid(category);
+}
+
+/* =========================
+   NAVIGASI HALAMAN
+========================= */
+let previousPage = 'home';
+
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('nav a').forEach(a => {
+        a.classList.toggle('active', a.dataset.page === pageId);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (pageId !== 'artikel' && pageId !== 'artist') {
+        previousPage = pageId;
+    }
+
+    if (pageId === 'sepakbola') {
+        setTimeout(() => {
+            loadLiveScores();
+            loadStandings('eng.1', document.querySelector('.standings-tabs button.active'));
+        }, 100);
+    }
+
+    if (pageId === 'fashion') {
+        setTimeout(() => {
+            renderFashionFeatured();
+            renderFashionGrid('all');
+        }, 100);
+    }
+}
+
+function goBack() {
+    showPage(previousPage);
+}
+
+/* =========================
+   TAMPILKAN ARTIKEL DETAIL
+========================= */
+function showArticle(id) {
+    const data = ARTICLES[id];
+    if (!data) {
+        alert('Artikel tidak ditemukan.');
+        return;
+    }
+
+    document.getElementById('artikelLabel').innerText = data.category;
+    document.getElementById('artikelTitle').innerText = data.title;
+    document.getElementById('artikelMeta').innerText = data.meta;
+    document.getElementById('artikelHero').src = data.img;
+    document.getElementById('artikelHero').alt = data.title;
+    document.getElementById('artikelBody').innerHTML = data.body.map(p => `<p>${p}</p>`).join('');
+
+    const related = Object.keys(ARTICLES)
+        .filter(k => k !== id && ARTICLES[k].category === data.category)
+        .slice(0, 3);
+
+    const relatedGrid = document.getElementById('artikelRelated');
+    if (related.length === 0) {
+        relatedGrid.innerHTML = '<div class="error-msg">Belum ada artikel terkait.</div>';
+    } else {
+        relatedGrid.innerHTML = related.map(k => {
+            const a = ARTICLES[k];
+            return `
+                <article class="article" onclick="showArticle('${k}')">
+                    <div class="article-image"><img src="${a.img}" alt="${a.title}"></div>
+                    <div class="article-info">
+                        <small>${a.category}</small>
+                        <h3>${a.title}</h3>
+                    </div>
+                </article>
+            `;
+        }).join('');
+    }
+
+    showPage('artikel');
+}
+
+/* =========================
+   TAMPILKAN HALAMAN ARTIS
+========================= */
+function showArtist(id) {
+    const data = ARTISTS[id];
+    if (!data) return;
+
+    document.getElementById('artistImg').src = data.img;
+    document.getElementById('artistImg').alt = data.name;
+    document.getElementById('artistLabel').innerText = data.label;
+    document.getElementById('artistName').innerText = data.name;
+    document.getElementById('artistMetaName').innerText = data.name;
+    document.getElementById('artistMetaGenre').innerText = data.genre;
+    document.getElementById('artistMetaCity').innerText = data.city;
+    document.getElementById('artistBio').innerHTML = data.bio.map(p => `<p>${p}</p>`).join('');
+
+    const related = Object.keys(ARTISTS).filter(k => k !== id).slice(0, 3);
+    document.getElementById('artistRelated').innerHTML = related.map(k => {
+        const a = ARTISTS[k];
+        return `
+            <article class="article" onclick="showArtist('${k}')">
+                <div class="article-image"><img src="${a.img}" alt="${a.name}"></div>
+                <div class="article-info">
+                    <small>${a.label}</small>
+                    <h3>${a.name}</h3>
+                </div>
+            </article>
+        `;
+    }).join('');
+
+    showPage('artist');
+
+    document.querySelectorAll('nav a').forEach(a => {
+        a.classList.toggle('active', a.dataset.page === 'musik');
+    });
+}
+
+/* =========================
+   SUB-NAVIGASI MUSIK
+========================= */
+function showMusicTab(tab, btnEl) {
+    document.querySelectorAll('#musicSubNav button').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    document.querySelectorAll('.music-tab-content').forEach(el => el.style.display = 'none');
+    const target = document.getElementById('musicTab-' + tab);
+    if (target) target.style.display = 'block';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* =========================
+   FILTER SINEMA
+========================= */
+function filterSinema(category, btnEl) {
+    document.querySelectorAll('#sinemaSubNav button').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    document.querySelectorAll('.sinema-card').forEach(el => {
+        if (category === 'all') {
+            el.style.display = 'block';
+        } else {
+            el.style.display = el.dataset.category === category ? 'block' : 'none';
+        }
+    });
+}
+
+/* =========================
+   INTERAKSI ARTIKEL
+========================= */
+function bookmark(button) {
+    if (button.innerText.includes("SIMPAN")) {
+        button.innerText = "✓ TERSIMPAN";
+    } else {
+        button.innerText = "🔖 SIMPAN";
+    }
+}
+
+function shareArticle() {
+    alert("Artikel siap dibagikan ke WhatsApp, X, dan Instagram Story.");
+}
+
+/* =========================
+   ESPN PUBLIC API
+========================= */
+const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/soccer';
+const ESPN_STANDINGS_BASE = 'https://site.web.api.espn.com/apis/v2/sports/soccer';
+
+const cache = {
+    standings: {},
+    liveScores: null,
+    lastFetch: 0
+};
+
+async function loadLiveScores() {
+    const container = document.getElementById('liveScoreContainer');
+    if (!container) return;
+
+    const now = Date.now();
+    if (cache.liveScores && (now - cache.lastFetch) < 60000) {
+        renderLiveScores(cache.liveScores);
+        return;
+    }
+
+    container.innerHTML = '<div class="loading">Memuat live score...</div>';
+
+    try {
+        const leagues = ['eng.1', 'esp.1', 'ger.1', 'ita.1', 'fra.1'];
+        const promises = leagues.map(lg =>
+            fetch(`${ESPN_BASE}/${lg}/scoreboard`)
+                .then(r => r.json())
+                .catch(() => ({ events: [] }))
+        );
+
+        const results = await Promise.all(promises);
+        let allEvents = [];
+        results.forEach((res, idx) => {
+            if (res.events) {
+                res.events.forEach(ev => {
+                    ev._league = leagues[idx];
+                    allEvents.push(ev);
+                });
+            }
+        });
+
+        const liveEvents = allEvents.filter(ev => {
+            const status = ev.competitions?.[0]?.status?.type?.name || '';
+            return status === 'STATUS_IN_PROGRESS';
+        });
+
+        cache.liveScores = liveEvents;
+        cache.lastFetch = now;
+
+        renderLiveScores(liveEvents);
+    } catch (error) {
+        console.error('Error loading live scores:', error);
+        container.innerHTML = `
+            <div class="error-msg">
+                ⚠️ Gagal memuat live score.<br>
+                <small>${error.message}</small>
+            </div>
+        `;
+    }
+}
+
+function renderLiveScores(events) {
+    const container = document.getElementById('liveScoreContainer');
+    if (!container) return;
+
+    if (!events || events.length === 0) {
+        container.innerHTML = '<div class="error-msg">Tidak ada pertandingan live saat ini.</div>';
+        return;
+    }
+
+    container.innerHTML = events.map(ev => {
+        const comp = ev.competitions[0];
+        const home = comp.competitors.find(c => c.homeAway === 'home');
+        const away = comp.competitors.find(c => c.homeAway === 'away');
+        const status = comp.status.type;
+
+        return `
+            <div class="match-card live">
+                <div class="match-team">
+                    <span>${home.team.shortDisplayName || home.team.displayName}</span>
+                    <span class="score">${home.score || '0'}</span>
+                </div>
+                <div class="match-team">
+                    <span>${away.team.shortDisplayName || away.team.displayName}</span>
+                    <span class="score">${away.score || '0'}</span>
+                </div>
+                <div class="match-status">
+                    <span>${ev._league.toUpperCase()}</span>
+                    <span class="live-badge">${status.detail || 'LIVE'}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+async function loadStandings(leagueCode, buttonEl) {
+    const container = document.getElementById('standingsContainer');
+    if (!container) return;
+
+    document.querySelectorAll('.standings-tabs button').forEach(btn => btn.classList.remove('active'));
+    if (buttonEl) buttonEl.classList.add('active');
+
+    if (cache.standings[leagueCode]) {
+        renderStandings(cache.standings[leagueCode]);
+        return;
+    }
+
+    container.innerHTML = '<div class="loading">Memuat klasemen...</div>';
+
+    try {
+        const res = await fetch(`${ESPN_STANDINGS_BASE}/${leagueCode}/standings`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        let entries = [];
+        if (data.children && data.children[0] && data.children[0].standings) {
+            entries = data.children[0].standings.entries || [];
+        } else if (data.standings) {
+            entries = data.standings.entries || [];
+        }
+
+        cache.standings[leagueCode] = entries;
+        renderStandings(entries);
+    } catch (error) {
+        console.error('Error loading standings:', error);
+        container.innerHTML = `
+            <div class="error-msg">
+                ⚠️ Gagal memuat klasemen.<br>
+                <small>${error.message}</small>
+            </div>
+        `;
+    }
+}
+
+function renderStandings(entries) {
+    const container = document.getElementById('standingsContainer');
+    if (!container) return;
+
+    if (!entries || entries.length === 0) {
+        container.innerHTML = '<div class="error-msg">Data klasemen tidak tersedia.</div>';
+        return;
+    }
+
+    container.innerHTML = `
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>#</th><th>Tim</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${entries.map((entry, idx) => {
+                    const team = entry.team || {};
+                    const stats = entry.stats || [];
+                    const getStat = (name) => {
+                        const s = stats.find(st => st.name === name || st.abbreviation === name);
+                        return s ? s.value : 0;
+                    };
+                    const played = getStat('gamesPlayed') || getStat('GP');
+                    const wins = getStat('wins') || getStat('W');
+                    const draws = getStat('ties') || getStat('D');
+                    const losses = getStat('losses') || getStat('L');
+                    const gd = getStat('pointDifferential') || getStat('GD') || getStat('goalDifference');
+                    const pts = getStat('points') || getStat('PTS');
+                    const logo = team.logos && team.logos[0] ? team.logos[0].href : '';
+
+                    return `
+                        <tr>
+                            <td class="pos">${idx + 1}</td>
+                            <td class="team-name">
+                                ${logo ? `<img src="${logo}" alt="">` : ''}
+                                ${team.shortDisplayName || team.displayName || team.name || '-'}
+                            </td>
+                            <td>${played}</td>
+                            <td>${wins}</td>
+                            <td>${draws}</td>
+                            <td>${losses}</td>
+                            <td>${gd > 0 ? '+' : ''}${gd || 0}</td>
+                            <td class="pts">${pts}</td>
+                        </tr>
+                    `;
+                }).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+/* ---------- AUTO REFRESH LIVE SCORE ---------- */
+setInterval(() => {
+    const sepakbolaPage = document.getElementById('page-sepakbola');
+    if (sepakbolaPage && sepakbolaPage.classList.contains('active') && !document.hidden) {
+        loadLiveScores();
+    }
+}, 60000);
+
+/* ---------- INIT ---------- */
+renderArtistGrid();
+renderFashionFeatured();
+renderFashionGrid('all');
+</script>
+
+</body>
+</html>
